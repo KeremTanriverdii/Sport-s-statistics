@@ -1,13 +1,30 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { environment } from '../environments/environment.development';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth'
+import { provideHttpClient } from '@angular/common/http';
+
+const firebaseConfig = {
+  apiKey: environment.apiKey,
+  authDomain: environment.authDomain,
+  projectId: environment.projectId,
+  storageBucket: environment.storageBucket,
+  messagingSerderId: environment.messagingSenderId,
+  appId: environment.appId
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideRouter(routes),
     provideBrowserGlobalErrorListeners(),
+    provideClientHydration(withEventReplay()),
+    provideHttpClient(),
     provideZonelessChangeDetection(),
-    provideRouter(routes), provideClientHydration(withEventReplay())
-  ]
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideAuth(() => getAuth())
+  ],
 };

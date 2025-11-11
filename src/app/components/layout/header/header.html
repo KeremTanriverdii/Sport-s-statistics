@@ -1,0 +1,15 @@
+<div class="flex-between p-2">
+    <h3 class="md:ml-15 font-bold text-3xl">Home</h3>
+
+    <div class="flex-stretch relative">
+        <input type="text" name="search" id=""
+            class="bg-[#232F48] rounded-lg h-full md:min-w-lg md:px-12 md:py-2 text-gray-50 placeholder:text-[#92A4C5] focus:border-violet-700"
+            placeholder="Searh player, team, or league..." />
+        <fa-icon [icon]="magnifyingGlass" class="absolute left-4" />
+
+        <button class="h-full bg-gray-600/50 rounded-xl md:p-2">
+            <fa-icon [icon]="bell" class="" />
+        </button>
+        <a routerLink="login" class="rounded-full bg-amber-500">Av</a>
+    </div>
+</div>

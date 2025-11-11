@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@layer utilities {
+
+    /* Flex Row Utilities */
+    .flexx-row {
+        @apply flex flex-row gap-3
+    }
+
+    .flex-between {
+        @apply flex gap-3 justify-between
+    }
+
+    .flex-stretch {
+        @apply flex gap-5 items-center justify-stretch
+    }
+
+
+    .flex-center {
+        @apply flex gap-3 justify-center
+    }
+
+    .flex-col {
+        @apply flex flex-col gap-3
+    }
+
+}

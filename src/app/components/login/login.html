@@ -1,0 +1,14 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email">
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" formControlName="password"> <br>
+
+    <button type="submit">login</button>
+</form>
+<br>
+<div class="text-white">
+    <h4>Or you have don't account?</h4>
+    <a [routerLink]="['/register']">Register</a>
+</div>

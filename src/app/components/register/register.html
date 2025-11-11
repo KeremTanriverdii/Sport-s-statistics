@@ -1,0 +1,20 @@
+<div class="text-4xl">Register Form</div>
+<form [formGroup]="form" (submit)="onSubmit()">
+    <div>
+        <input type="text" placeholder="Username" formControlName="username" />
+    </div>
+    <div>
+        <input type="email" placeholder="email" formControlName="email">
+    </div>
+    <div>
+        <input type="password" placeholder="password" formControlName="password">
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+@if(errorMessage){
+{{errorMessage}}
+} @else{
+<p>correct</p>
+}
