@@ -16,13 +16,26 @@
         @apply flex gap-5 items-center justify-stretch
     }
 
-
     .flex-center {
         @apply flex gap-3 justify-center
     }
 
+    /* Flex Row Utilities End */
+
+    /* Flex col utilities starts */
     .flex-col {
         @apply flex flex-col gap-3
     }
+
+    .flex-col-bet {
+        @apply flex flex-col gap-3 items-center
+    }
+
+    .card {
+        @apply bg-transparent rounded-2xl border-2 border-black bg-cover bg-center p-4 gap-3 justify-end flex flex-col cursor-pointer aspect-video transition duration-300 delay-75 ease-in-out hover:scale-105
+    }
+
+    /* Flex col utilities end */
+
 
 }

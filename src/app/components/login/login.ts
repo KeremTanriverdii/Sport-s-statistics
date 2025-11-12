@@ -15,6 +15,12 @@ export class LoginComponent {
   router = inject(Router);
   errorMessage: string | null = null;
 
+  logout() {
+    this.authService.logOut();
+  }
+  loginGoogle() {
+    this.authService.logGoogle();
+  }
   form = this.fb.nonNullable.group({
     email: ["", Validators.required],
     password: ["", Validators.required]

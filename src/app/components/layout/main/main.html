@@ -1,1 +1,50 @@
-<router-outlet />
+<div class="flex flex-col gap-y-60 px-10">
+
+    <div>
+        <div class="flex-between items-end md:mb-10">
+            <h4 class="font-bold text-3xl">Featured Leagues</h4>
+            <a href="" class="text-violet-500/50 font-bold hover:underline">View All</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            @for (card of cards(); track card.title) {
+            <app-card [imageUrl]="card.url" [cardTitle]="card.title">
+            </app-card>
+            }
+        </div>
+    </div>
+
+    <div class="mt-20">
+        <div class="flex-between items-end md:mb-10">
+            <h4 class="font-bold text-3xl">Popular Teams</h4>
+            <a href="" class="text-violet-500/50 font-bold hover:underline">View All</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            @for (card of cardsTeams(); track card.title) {
+            <app-card [imageUrl]="card.url" [cardTitle]="card.title">
+            </app-card>
+            }
+        </div>
+    </div>
+    <div>
+
+    </div>
+
+    <div class="mt-20">
+        <div class="flex-between items-end md:mb-10">
+            <h4 class="font-bold text-3xl">Popular Teams</h4>
+            <a href="" class="text-violet-500/50 font-bold hover:underline">View All</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+            @for (card of cardsPlayer(); track card.title) {
+            <app-card [imageUrl]="card.url" [cardTitle]="card.title">
+            </app-card>
+            }
+        </div>
+    </div>
+    <div>
+
+    </div>
+</div>

@@ -12,5 +12,5 @@ import { Main } from "./components/layout/main/main";
   standalone: true,
 })
 export class App {
-  protected readonly title = signal('sports-info');
+  protected readonly title = signal('StatsZone - Football & NBA Stats');
 }
