@@ -3,3 +3,5 @@ export interface UserInterface {
     email: string;
     photo?: string;
 }
+
+// export type baseUrlType = "basketball" | "football" 

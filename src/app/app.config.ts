@@ -6,7 +6,8 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { environment } from '../environments/environment.development';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth'
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { cacheInterceptor } from './services/cache-interceptor';
 
 const firebaseConfig = {
   apiKey: environment.apiKey,
@@ -22,7 +23,12 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideBrowserGlobalErrorListeners(),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([
+        cacheInterceptor // Kendi yazdığımız Interceptor'ı buraya ekliyoruz
+        // Başka interceptor'larınız varsa buraya virgülle ekleyebilirsiniz
+      ])
+    ),
     provideZonelessChangeDetection(),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth())

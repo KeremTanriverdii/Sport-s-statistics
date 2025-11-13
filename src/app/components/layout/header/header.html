@@ -2,42 +2,80 @@
     <h3 class="md:ml-15 font-bold text-2xl">Home</h3>
 
     <div class="flex-stretch relative h-1/2">
-        <input type="text" name="search" id=""
-            class="bg-[#232F48] rounded-lg h-full  md:min-w-lg md:px-12  text-gray-50 placeholder:text-[#92A4C5] focus:border-violet-700"
-            placeholder="Searh player, team, or league..." />
+        <div class="relative w-full">
+            <input type="text" name="search" [formControl]="searchControl"
+                class="bg-[#232F48] rounded-lg h-full w-full md:min-w-lg md:px-12 pl-10 text-gray-50 placeholder:text-[#92A4C5] focus:border-violet-700 focus:outline-none"
+                placeholder="Search player, team, or league..." />
 
-        <fa-icon [icon]="magnifyingGlass" class="absolute left-4" />
+            <fa-icon [icon]="magnifyingGlass" class="absolute left-4 top-1/2 -translate-y-1/2 text-[#92A4C5]" />
 
-        <button class="bg-gray-600/50 rounded-lg md:p-2">
+            <!-- Search Results Dropdown -->
+            @if (isLoading()) {
+            <div class="absolute top-full left-0 w-full mt-2 bg-[#232F48] rounded-lg p-4 text-gray-50 shadow-lg z-50">
+                Aranıyor...
+            </div>
+            }
+
+            @if (notFound()) {
+            <div class="absolute top-full left-0 w-full mt-2 bg-[#232F48] rounded-lg p-4 text-gray-50 shadow-lg z-50">
+                Bulunamadı
+            </div>
+            }
+
+            @if (!isLoading() && results().length) {
+            <ul
+                class="absolute top-full left-0 w-full mt-2 bg-[#232F48] rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
+                @for (item of results(); track $index) {
+                <li class="p-3 hover:bg-[#2a3b5a] cursor-pointer border-b border-gray-700 text-white">
+                    <!-- Debug: Show raw item -->
+                    <pre class="text-xs">{{ item | json }}</pre>
+
+                    <!-- Try different property paths -->
+                    <div>Team: {{ item.team?.name }}</div>
+                    <div>Player: {{ item.player?.name }}</div>
+                    <div>League: {{ item.league?.name }}</div>
+                    <div>Name: {{ item.name }}</div>
+                    <div>Sport: {{ item._sport }}</div>
+                    <div>Type: {{ item._type }}</div>
+                </li>
+                }
+            </ul>
+            }
+        </div>
+
+        <button class="bg-gray-600/50 rounded-lg md:p-2 ml-2">
             <fa-icon [icon]="bell" />
         </button>
 
-        @if(authService.currentUserSig()){
-        <div class="relative inline-block text-left h-full">
-
-            <button (click)="toggleDropdown()" class="bg-transparent rounded-full hover:bg-green-500 cursor-pointer"
-                id="menu-button">
-                <img [src]="authService.currentUserSig()?.photo" alt="" width="40" height="40" class="rounded-full"
-                    aria-hidden="true">
+        @if (authService.currentUserSig()) {
+        <div class="relative inline-block text-left h-full ml-2">
+            <button (click)="toggleDropdown()"
+                class="bg-transparent rounded-full hover:bg-green-500 cursor-pointer transition-colors" id="menu-button"
+                type="button">
+                <img [src]="authService.currentUserSig()?.photo" [alt]="authService.currentUserSig()?.username"
+                    width="40" height="40" class="rounded-full" aria-hidden="true">
             </button>
 
             <div [ngClass]="{ 'block': isDropdownOpen, 'hidden': !isDropdownOpen }"
                 class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div role="none">
-                    <ul class="text-black group-hover:via-gray-500/50 p-3 flex flex-col gap-2">
-                        <li class="hover:bg-gray-600/30 flex-between hover:rounded-xs" (click)="authService.logOut()">
-                            <button type="button" (click)="authService.logOut()">Çıkış yap
+                <div role="menu">
+                    <ul class="text-black p-3 flex flex-col gap-2">
+                        <li class="hover:bg-gray-600/30 flex-between hover:rounded-sm p-2 cursor-pointer">
+                            <button type="button" (click)="authService.logOut()" class="w-full text-left">
+                                Çıkış yap
                             </button>
                             <fa-icon [icon]="logOutSvg" />
                         </li>
-                        <li class="hover:bg-gray-600/30">2</li>
-                        <li class="hover:bg-gray-600/30">3</li>
+                        <li class="hover:bg-gray-600/30 p-2 rounded-sm cursor-pointer">Profile</li>
+                        <li class="hover:bg-gray-600/30 p-2 rounded-sm cursor-pointer">Settings</li>
                     </ul>
                 </div>
             </div>
         </div>
-        }@else {
-        <a routerLink="login" class="rounded-full bg-amber-500">Av</a>
+        } @else {
+        <a routerLink="login" class="rounded-full bg-amber-500 px-4 py-2 ml-2 hover:bg-amber-600 transition-colors">
+            Login
+        </a>
         }
     </div>
 </div>
